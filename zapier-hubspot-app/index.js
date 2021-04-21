@@ -10,6 +10,13 @@ const addApiKeytoParams = (request, z, bundle) => {
   return request
 }
 
+const throwErrors = (response, z, bundle) => {
+  if(response.status >=400){
+    throw new Error(`Error: ${response.json.message}, Status Code: ${response.status}`)
+  }
+  return response
+}
+
 
 module.exports = {
   // This is just shorthand to reference the installed dependencies you have.
@@ -38,6 +45,10 @@ module.exports = {
 
   beforeRequest: [
     addApiKeytoParams
+  ],
+
+  afterRespons: [
+    throwErrors
   ],
 
   // If you want your trigger to show up, you better include it here!
