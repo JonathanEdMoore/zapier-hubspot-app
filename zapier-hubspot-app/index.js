@@ -47,7 +47,7 @@ module.exports = {
     addApiKeytoParams
   ],
 
-  afterRespons: [
+  afterResponse: [
     throwErrors
   ],
 
