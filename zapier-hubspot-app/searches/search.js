@@ -13,7 +13,7 @@ const perform = (z, bundle) => {
       accept: 'application/json'
     }
   }
-  return z.request(url, options).then((response) => [response] /*Update this to handle error response*/)
+  return z.request(url, options).then((response) => [response.json] /*Update this to handle error response*/)
 }
 
 

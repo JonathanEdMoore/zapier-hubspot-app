@@ -25,9 +25,9 @@ describe('My App ', () => {
       .then(results => {
         should(results.length).eql(1)
         const firstResult = results[0]
-        should(firstResult.json.properties.firstname).eql('Jonathan')
-        should(firstResult.json.properties.lastname).eql('Moore')
-        should(firstResult.json.properties.email).eql('jonathan.moore@lefthook.com')
+        should(firstResult.properties.firstname).eql('Jonathan')
+        should(firstResult.properties.lastname).eql('Moore')
+        should(firstResult.properties.email).eql('jonathan.moore@lefthook.com')
 
         done()
       })
@@ -56,7 +56,7 @@ describe('My App ', () => {
     appTester(App.creates.contact.operation.perform, bundle)
       .then(results => {
         should.exist(results)
-        should(results.json.properties.company).eql('Town of Normal')
+        should(results.properties.company).eql('Town of Normal')
 
         done()
       })
@@ -81,7 +81,7 @@ describe('My App ', () => {
     appTester(App.creates.update_contact.operation.perform, bundle)
       .then(results => {
         should.exist(results)
-        should(results.json.properties.phone).eql('(309) 825-7333')
+        should(results.properties.phone).eql('(309) 825-7333')
 
         done()
       })

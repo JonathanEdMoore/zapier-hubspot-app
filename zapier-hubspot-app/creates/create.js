@@ -20,7 +20,7 @@ const perform = (z, bundle) => {
     },
     json: true
   }
-  return z.request(url, options).then((response) => response)
+  return z.request(url, options).then((response) => response.json)
 }
 
 module.exports = {
