@@ -5,12 +5,12 @@ const create = require('./creates/create')
 const update = require('./creates/update')
 
 
-const addApiKeytoParams = (request, bundle) => {
+const addApiKeytoParams = (request, z, bundle) => {
   request.params['hapikey'] = bundle.authData.apikey 
   return request
 }
 
-const throwErrors = (response) => {
+const throwErrors = (response, z, bundle) => {
   if(response.status === 404){
     /*This seems awkward but I couldn't think of a better way to do it */
     response.status = 200
