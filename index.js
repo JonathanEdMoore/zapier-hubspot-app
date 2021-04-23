@@ -10,7 +10,7 @@ const addApiKeytoParams = (request, z, bundle) => {
   return request
 }
 
-const throwErrors = (response, z, bundle) => {
+const throwErrors = (response) => {
   if(response.status === 404){
     /*This seems awkward but I couldn't think of a better way to do it */
     response.status = 200

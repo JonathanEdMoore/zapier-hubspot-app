@@ -34,7 +34,7 @@ describe('My App ', () => {
       .catch(done)
   })
 
-  it('should not return a 400 when a contact is not found', (done) => {
+  it.only('should not return a 400 when a contact is not found', (done) => {
     const bundle = {
       authData: {
         apikey: process.env.APIKEY
