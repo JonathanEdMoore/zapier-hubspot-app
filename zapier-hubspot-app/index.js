@@ -11,9 +11,18 @@ const addApiKeytoParams = (request, z, bundle) => {
 }
 
 const throwErrors = (response, z, bundle) => {
-  if(response.status >=400){
+  if(response.status === 404){
+    response.status = 200
+    response.json = {
+      message: 'No person with that email found.'
+    }
+    return response
+  }
+
+  else if(response.status >= 400){
     throw new Error(`Error: ${response.json.message}, Status Code: ${response.status}`)
   }
+  
   return response
 }
 
