@@ -5,7 +5,7 @@ const create = require('./creates/create')
 const update = require('./creates/update')
 
 
-const addApiKeytoParams = (request, z, bundle) => {
+const addApiKeytoParams = (request, bundle) => {
   request.params['hapikey'] = bundle.authData.apikey 
   return request
 }
