@@ -39,7 +39,7 @@ module.exports = {
     inputFields: [
       {
         key: 'lifecyclestage',
-        required: true,
+        required: false,
         label: 'Lifecycle Stage',
         dynamic: 'lifecyclestage.id.label'
       },
