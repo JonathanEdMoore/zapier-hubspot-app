@@ -10,6 +10,8 @@ const appTester = zapier.createAppTester(App)
 zapier.tools.env.inject()
 
 describe('My App ', () => {
+
+
   it('should find a contact by email', (done) => {
     const bundle = {
       authData: {
@@ -23,7 +25,7 @@ describe('My App ', () => {
 
     appTester(App.searches.contact.operation.perform, bundle)
       .then(results => {
-        should(results.json.length).eql(1)
+        should(results.length).eql(1)
         const firstResult = results[0]
         should(firstResult.json.properties.firstname).eql('Jonathan')
         should(firstResult.json.properties.lastname).eql('Moore')

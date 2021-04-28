@@ -1,5 +1,6 @@
 'use strict'
 
+
 const perform = (z, bundle) => {
   const url = 'https://api.hubapi.com/crm/v3/objects/contacts'
   const options = {
@@ -15,7 +16,8 @@ const perform = (z, bundle) => {
         firstname: bundle.inputData.firstname,
         lastname: bundle.inputData.lastname,
         phone: bundle.inputData.phone,
-        website: bundle.inputData.website
+        website: bundle.inputData.website,
+        lifecyclestage: bundle.inputData.lifecyclestage
       }
     },
     json: true
@@ -33,8 +35,15 @@ module.exports = {
   },
 
   operation: {
-  
+
     inputFields: [
+      {
+        key: 'lifecyclestage',
+        required: true,
+        label: 'Lifecycle Stage',
+        dynamic: 'lifecyclestage.id.label'
+      },
+
       {
         key: 'company',
         type: 'string',

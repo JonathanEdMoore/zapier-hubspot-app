@@ -3,6 +3,7 @@
 const search = require('./searches/search')
 const create = require('./creates/create')
 const update = require('./creates/update')
+const lifecycleStage = require('./triggers/lifecycleStage')
 
 
 const addApiKeytoParams = (request, z, bundle) => {
@@ -62,7 +63,9 @@ module.exports = {
   ],
 
   // If you want your trigger to show up, you better include it here!
-  triggers: {},
+  triggers: {
+    [lifecycleStage.key]: lifecycleStage
+  },
 
   // If you want your searches to show up, you better include it here!
   searches: {
