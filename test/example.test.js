@@ -11,6 +11,24 @@ zapier.tools.env.inject()
 
 describe('My App ', () => {
 
+  it('should return list of properties', (done) => {
+    const bundle = {
+      authData: {
+        apikey: process.env.APIKEY
+      }
+    }
+
+    appTester(App.triggers.lifecyclestage.operation.perform, bundle)
+      .then(results => {
+        should(results).exist
+        results.forEach(option => should(option).hasOwnProperty('id'))
+        results.forEach(option => should(option).hasOwnProperty('label'))
+
+        done()
+      })
+      .catch(done)
+  })
+
 
   it('should find a contact by email', (done) => {
     const bundle = {
@@ -67,7 +85,8 @@ describe('My App ', () => {
         firstname: 'Daniel',
         lastname: 'Moore',
         phone: '(309) 824-0469',
-        website: 'https://Daniel.moore.com'
+        website: 'https://Daniel.moore.com',
+        lifecyclestage: 'lead'
       },
       headers: {
         accept: 'application/json',
