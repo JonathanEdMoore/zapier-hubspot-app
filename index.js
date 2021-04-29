@@ -4,12 +4,8 @@ const search = require('./searches/search')
 const create = require('./creates/create')
 const update = require('./creates/update')
 const lifecycleStage = require('./triggers/lifecycleStage')
+const {authentication, addBearerHeader} = require('./authentication')
 
-
-const addApiKeytoParams = (request, z, bundle) => {
-  request.params['hapikey'] = bundle.authData.apikey 
-  return request
-}
 
 const throwErrors = (response, z, bundle) => {
   if(response.status === 404){
@@ -35,27 +31,11 @@ module.exports = {
   version: require('./package.json').version,
   platformVersion: require('zapier-platform-core').version,
 
-  authentication:  {
-    type: 'custom',
-    fields: [
-      {
-        key: 'apikey',
-        type: 'string'
-      }
-    ],
-    test: (z, bundle) => {
-      const promise = z.request('https://api.hubapi.com/crm/v3/objects/contacts')
-      return promise.then((response) => {
-        if(response.status !== 200) {
-          throw new Error('Invalid API Key')
-        }
-      })
-    }
-  },
+  authentication,
   
 
   beforeRequest: [
-    addApiKeytoParams
+    addBearerHeader
   ],
 
   afterResponse: [
