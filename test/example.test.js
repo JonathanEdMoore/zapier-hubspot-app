@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 /* eslint-disable quotes */
 /* eslint-disable no-unused-vars */
 /* globals describe, it, expect, */
@@ -20,9 +19,7 @@ describe('My App ', () => {
 
   it('should return list of properties', (done) => {
     const bundle = {
-      authData: {
-        apikey: process.env.APIKEY
-      }
+      authData
     }
 
     appTester(App.triggers.lifecyclestage.operation.perform, bundle)
