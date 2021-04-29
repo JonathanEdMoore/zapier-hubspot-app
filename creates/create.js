@@ -16,7 +16,8 @@ const perform = (z, bundle) => {
         lastname: bundle.inputData.lastname,
         phone: bundle.inputData.phone,
         website: bundle.inputData.website,
-        lifecyclestage: bundle.inputData.lifecyclestage
+        lifecyclestage: bundle.inputData.lifecyclestage,
+        hs_lead_status: bundle.inputData.leadstatus
       }
     },
     json: true

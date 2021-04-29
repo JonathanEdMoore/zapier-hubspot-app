@@ -19,7 +19,8 @@ const perform = (z, bundle) => {
         lastname: bundle.inputData.lastname,
         phone: bundle.inputData.phone,
         website: bundle.inputData.website,
-        lifecyclestage: bundle.inputData.lifecyclestage
+        lifecyclestage: bundle.inputData.lifecyclestage,
+        hs_lead_status: bundle.inputData.leadstatus
       }
     },
     json: true
@@ -43,7 +44,19 @@ module.exports = {
         key:'lifecyclestage',
         required: false,
         label: 'Lifecycle Stage',
-        dynamic: 'lifecyclestage.id.label'
+        dynamic: 'lifecyclestage.id.label',
+        altersDynamicFields: true
+      },
+
+      function (z, bundle) {
+        if(bundle.inputData.lifecyclestage === 'lead'){
+          return {
+            key: 'leadstatus',
+            required: false,
+            label: 'Lead Status',
+            dynamic: 'leadstatus.id.label'
+          }
+        }
       },
       {
         key: 'company',
