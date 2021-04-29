@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable quotes */
 /* eslint-disable no-unused-vars */
-/* globals describe, it, expect, beforeAll */
+/* globals describe, it, expect, */
 'use strict'
 
 const should = require('should')
