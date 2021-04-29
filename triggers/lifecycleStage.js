@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 'use strict'
 
-const perform = (z, bundle) => {
+const perform = (z) => {
   const url = 'https://api.hubapi.com/properties/v1/contacts/properties/named/lifecyclestage'
   return z.request(url).then((response) => {
     let results = []
@@ -33,6 +33,7 @@ module.exports = {
     inputFields: [
 
     ],
+
     perform,
 
     sample: {

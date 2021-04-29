@@ -1,6 +1,5 @@
 'use strict'
 
-
 const perform = (z, bundle) => {
   const url = 'https://api.hubapi.com/crm/v3/objects/contacts'
   const options = {
@@ -41,7 +40,19 @@ module.exports = {
         key: 'lifecyclestage',
         required: false,
         label: 'Lifecycle Stage',
-        dynamic: 'lifecyclestage.id.label'
+        dynamic: 'lifecyclestage.id.label',
+        altersDynamicFields: true
+      },
+
+      function (z, bundle) {
+        if(bundle.inputData.lifecyclestage === 'lead'){
+          return {
+            key: 'leadstatus',
+            required: false,
+            label: 'Lead Status',
+            dynamic: 'leadstatus.id.label'
+          }
+        }
       },
 
       {

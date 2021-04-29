@@ -5,6 +5,7 @@ const create = require('./creates/create')
 const update = require('./creates/update')
 const lifecycleStage = require('./triggers/lifecycleStage')
 const {authentication, addBearerHeader} = require('./authentication')
+const leadStatus = require('./triggers/leadStatus')
 
 
 const throwErrors = (response, z, bundle) => {
@@ -44,7 +45,8 @@ module.exports = {
 
   // If you want your trigger to show up, you better include it here!
   triggers: {
-    [lifecycleStage.key]: lifecycleStage
+    [lifecycleStage.key]: lifecycleStage,
+    [leadStatus.key]: leadStatus
   },
 
   // If you want your searches to show up, you better include it here!
