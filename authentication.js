@@ -52,7 +52,7 @@ const authentication = {
         'content-type': 'application/x-www-form-urlencoded'
       },
     },
-    scope: 'contacts' 
+    scope: 'contacts, automation' 
   },
 }
 
