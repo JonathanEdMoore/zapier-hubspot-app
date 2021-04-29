@@ -1,5 +1,7 @@
+/* eslint-disable no-undef */
+/* eslint-disable quotes */
 /* eslint-disable no-unused-vars */
-/* globals describe, it, expect */
+/* globals describe, it, expect, beforeAll */
 'use strict'
 
 const should = require('should')
@@ -9,7 +11,12 @@ const App = require('../index')
 const appTester = zapier.createAppTester(App)
 zapier.tools.env.inject()
 
+const authData = {
+  access_token: process.env.ACCESS_TOKEN
+}
+
 describe('My App ', () => {
+
 
   it('should return list of properties', (done) => {
     const bundle = {
@@ -32,9 +39,7 @@ describe('My App ', () => {
 
   it('should find a contact by email', (done) => {
     const bundle = {
-      authData: {
-        apikey: process.env.APIKEY
-      },
+      authData,
 
       inputData: {
         email: 'jonathan.moore@lefthook.com'
@@ -56,9 +61,8 @@ describe('My App ', () => {
 
   it('should not return a 400 when a contact is not found', (done) => {
     const bundle = {
-      authData: {
-        apikey: process.env.APIKEY
-      },
+      authData,
+
       inputData: {
         email: 'dcmoore19@gmail.com'
       }
@@ -76,9 +80,8 @@ describe('My App ', () => {
 
   it('should create a new contact', (done) => {
     const bundle = {
-      authData: {
-        apikey: process.env.APIKEY
-      },
+      authData,
+
       inputData: {
         company: 'Town of Normal',
         email: 'dcmoore19@gmail.com',
@@ -106,9 +109,8 @@ describe('My App ', () => {
 
   it('should update an existing contact', (done) => {
     const bundle = {
-      authData: {
-        apikey: process.env.APIKEY
-      },
+      authData,
+
       inputData: {
         email: 'andreacraigmoore@gmail.com',
         phone: '(309) 825-7333'
