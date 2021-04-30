@@ -11,6 +11,36 @@ const test = (z, bundle) => {
   return response.json
 }
 
+const refreshAccessToken = (z, bundle) => {
+  const response = z.request(
+    {
+      url: 'https://api.hubapi.com/oauth/v1/token',
+
+      method: 'POST',
+
+      body: {
+        client_id: process.env.CLIENT_ID,
+
+        client_secret: process.env.CLIENT_SECRET,
+
+        grant_type: 'refresh_token',
+
+        refresh_token: bundle.authData.refresh_token
+      },
+
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded'
+      }
+
+    }
+  )
+
+  return {
+    access_token: response.data.access_token,
+    refresh_token: response.data.refresh_token
+  }
+}
+
 const authentication = {
   type: 'oauth2',
   
@@ -52,6 +82,10 @@ const authentication = {
         'content-type': 'application/x-www-form-urlencoded'
       },
     },
+
+    refreshAccessToken,
+    autoRefresh: true,
+
     scope: 'contacts, automation' 
   },
 }
