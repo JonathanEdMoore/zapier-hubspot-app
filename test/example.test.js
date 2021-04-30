@@ -34,6 +34,22 @@ describe('My App ', () => {
       .catch(done)
   })
 
+  it('should return list of lead statuses', (done) => {
+    const bundle = {
+      authData
+    }
+
+    appTester(App.triggers.leadstatus.operation.perform, bundle)
+      .then(results => {
+        should(results).exist
+        results.forEach(option => should(option).hasOwnProperty('id'))
+        results.forEach(option => should(option).hasOwnProperty('label'))
+
+        done()
+      })
+      .catch(done)
+  })
+
 
   it('should find a contact by email', (done) => {
     const bundle = {
