@@ -1,4 +1,5 @@
 'use strict'
+
 const propertiesFields = (z) => {
   const url = 'https://api.hubapi.com/properties/v1/contacts/properties'
   return z.request(url).then((response) => {
