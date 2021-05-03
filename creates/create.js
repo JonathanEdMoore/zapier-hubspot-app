@@ -1,5 +1,50 @@
 'use strict'
 
+const propertiesFields = (z) => {
+  const url = 'https://api.hubapi.com/properties/v1/contacts/properties'
+  return z.request(url).then((response) => {
+    let results = []
+    for (const properties of response.json) {
+
+      if (properties.name === 'lifecyclestage') {
+        results.splice(0,0,
+          {
+            key: properties.name,
+            required: false,
+            label: properties.label,
+            dynamic: 'lifecyclestage.id.label',
+            altersDynamicFields: true
+          }
+        )
+      }
+
+      else if (properties.name === 'email') {
+        results.splice(0,0,{
+          key: properties.name,
+          type: 'string',
+          label: properties.label,
+          required: true
+        }
+        )
+      }
+
+      else if (properties.name !== 'hs_lead_status') {
+        results.push(
+          {
+            key: properties.name,
+            type: 'string',
+            label: properties.label,
+            required: false
+          }
+        )
+      }
+
+    }
+
+    return results
+  })
+}
+
 const perform = (z, bundle) => {
   const url = 'https://api.hubapi.com/crm/v3/objects/contacts'
   const options = {
@@ -37,16 +82,11 @@ module.exports = {
   operation: {
 
     inputFields: [
-      {
-        key: 'lifecyclestage',
-        required: false,
-        label: 'Lifecycle Stage',
-        dynamic: 'lifecyclestage.id.label',
-        altersDynamicFields: true
-      },
+
+      propertiesFields,
 
       function (z, bundle) {
-        if(bundle.inputData.lifecyclestage === 'lead'){
+        if (bundle.inputData.lifecyclestage === 'lead') {
           return {
             key: 'leadstatus',
             required: false,
@@ -54,43 +94,6 @@ module.exports = {
             dynamic: 'leadstatus.id.label'
           }
         }
-      },
-
-      {
-        key: 'company',
-        type: 'string',
-        label: 'Company',
-        required: false
-      },
-      {
-        key: 'email',
-        type: 'string',
-        label: 'Email',
-        required: true
-      },
-      {
-        key: 'firstname',
-        type: 'string',
-        label: 'First Name',
-        required: false
-      },
-      {
-        key: 'lastname',
-        type: 'string',
-        label: 'Last Name',
-        required: false
-      },
-      {
-        key: 'phone',
-        type: 'string',
-        label: 'Phone Number',
-        required: false
-      },
-      {
-        key: 'website',
-        type: 'string',
-        label: 'Website',
-        required: false
       }
     ],
     perform,
