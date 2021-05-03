@@ -18,7 +18,7 @@ const authData = {
 describe('My App ', () => {
 
 
-  it('should return list of properties', (done) => {
+  it('should return list of lifecyclestages', (done) => {
     const bundle = {
       authData
     }
