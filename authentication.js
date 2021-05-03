@@ -86,7 +86,7 @@ const authentication = {
     refreshAccessToken,
     autoRefresh: true,
 
-    scope: 'contacts, automation' 
+    scope: 'contacts' 
   },
 }
 
