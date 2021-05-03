@@ -7,7 +7,7 @@ const propertiesFields = (z) => {
     for (const properties of response.json) {
 
       if (properties.name === 'lifecyclestage') {
-        results.splice(0,0,
+        results.splice(0, 0,
           {
             key: properties.name,
             required: false,
@@ -19,12 +19,13 @@ const propertiesFields = (z) => {
       }
 
       else if (properties.name === 'email') {
-        results.splice(0,0,{
-          key: properties.name,
-          type: 'string',
-          label: properties.label,
-          required: true
-        }
+        results.splice(0, 0,
+          {
+            key: properties.name,
+            type: 'string',
+            label: properties.label,
+            required: true
+          }
         )
       }
 
