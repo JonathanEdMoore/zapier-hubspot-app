@@ -17,7 +17,25 @@ const authData = {
 
 describe('My App ', () => {
 
+  it.only('should load contacts', (done) => {
+    const bundle = {
+      authData
+    }
 
+    appTester(App.triggers.contact.operation.perform, bundle)
+      .then(results => {
+        expect(results.length).toBeGreaterThan(1)
+
+        const firstResult = results[0]
+        console.log('test result', firstResult)
+        expect(firstResult.properties.firstname.value).toBe('Maria')
+        expect(firstResult.properties.lastname.value).toBe('Johnson (Sample Contact)')
+
+        done()
+      })
+      .catch(done)
+
+  })
   it('should return list of lifecyclestages', (done) => {
     const bundle = {
       authData
