@@ -27,7 +27,6 @@ describe('My App ', () => {
         expect(results.length).toBeGreaterThan(1)
 
         const firstResult = results[0]
-        console.log('test result', firstResult)
         expect(firstResult.properties.firstname.value).toBe('Maria')
         expect(firstResult.properties.lastname.value).toBe('Johnson (Sample Contact)')
 
