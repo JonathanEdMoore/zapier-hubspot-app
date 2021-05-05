@@ -29,7 +29,27 @@ describe('oauth2 app', () => {
 
     return appTester(App.authentication.oauth2Config.authorizeUrl, bundle)
       .then((authorizeUrl) => {
-        authorizeUrl.should.eql('https://app.hubspot.com/oauth/authorize?client_id=1234&redirect_uri=http%3A%2F%2Fzapier.com&response_type=code')
+        authorizeUrl.should.eql('https://app.hubspot.com/oauth/authorize?client_id=6eeb2f0b-1fb6-4cfd-a75e-2478bca0e99a&redirect_uri=http%3A%2F%2Fzapier.com&response_type=code')
+      })
+  })
+
+  it.only('can fetch an access token', () => {
+    const bundle = {
+      inputData: {
+        code: '',
+        redirect_uri: 'https://zapier.com/dashboard/auth/oauth/return/App131772CLIAPI/'
+      },
+      environment: {
+        CLIENT_ID: process.env.CLIENT_ID,
+        CLIENT_SECRET: process.env.CLIENT_SECRET
+      },
+
+    }
+
+    return appTester(App.authentication.oauth2Config.getAccessToken, bundle)
+      .then((result) => {
+        result.access_token.should.eql('')
+        result.refresh_token.should.eql('')
       })
   })
 })

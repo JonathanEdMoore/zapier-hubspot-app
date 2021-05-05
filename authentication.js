@@ -17,24 +17,29 @@ const getAccessToken = (z, bundle) => {
 
     body: {
       code: bundle.inputData.code,
+      
+      redirect_uri: bundle.inputData.redirect_uri,
 
       client_id: process.env.CLIENT_ID,
 
       client_secret: process.env.CLIENT_SECRET,
 
-      grant_type: 'authorization-code'
+      grant_type: 'authorization_code'
     },
 
     headers: {
+      accept: 'application/json',
+
       'content-type': 'application/x-www-form-urlencoded'
     }
   })
 
+  
   return promise.then((response) => {
     if(response.status !== 200) {
       throw new Error('Unable to fetch access token: ' + response.json)
     }
-
+    
     return {
       access_token: response.json.access_token,
       refresh_token: response.json.refresh_token
@@ -56,6 +61,8 @@ const refreshAccessToken = (z, bundle) => {
       grant_type: 'refresh_token'
     },
     headers: {
+      accept: 'application/json',
+      
       'content-type': 'application/x-www-form-urlencoded'
     }
   })
@@ -79,7 +86,7 @@ const authentication = {
   oauth2Config: {
     authorizeUrl: {
 
-      url: 'https://app.hubspot.com/oauth/authorize?',
+      url: 'https://app.hubspot.com/oauth/authorize',
 
       params: {
         client_id: '{{process.env.CLIENT_ID}}',
