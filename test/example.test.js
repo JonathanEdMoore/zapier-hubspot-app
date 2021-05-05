@@ -15,7 +15,7 @@ const authData = {
 }
 
 
-describe.skip('My App ', () => {
+describe('My App ', () => {
 
   it('should load contacts', (done) => {
     const bundle = {
