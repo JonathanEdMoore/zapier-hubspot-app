@@ -11,34 +11,64 @@ const test = (z, bundle) => {
   return response.json
 }
 
-const refreshAccessToken = (z, bundle) => {
-  const response = z.request(
-    {
-      url: 'https://api.hubapi.com/oauth/v1/token',
+const getAccessToken = (z, bundle) => {
+  const promise = z.request(`${process.env.BASE_URL}/oauth/v1/token`, {
+    method: 'POST',
 
-      method: 'POST',
+    body: {
+      code: bundle.inputData.code,
 
-      body: {
-        client_id: process.env.CLIENT_ID,
+      client_id: process.env.CLIENT_ID,
 
-        client_secret: process.env.CLIENT_SECRET,
+      client_secret: process.env.CLIENT_SECRET,
 
-        grant_type: 'refresh_token',
+      grant_type: 'authorization-code'
+    },
 
-        refresh_token: bundle.authData.refresh_token
-      },
-
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded'
-      }
-
+    headers: {
+      'content-type': 'application/x-www-form-urlencoded'
     }
-  )
+  })
 
-  return {
-    access_token: response.data.access_token,
-    refresh_token: response.data.refresh_token
-  }
+  return promise.then((response) => {
+    if(response.status !== 200) {
+      throw new Error('Unable to fetch access token: ' + response.json)
+    }
+
+    return {
+      access_token: response.json.access_token,
+      refresh_token: response.json.refresh_token
+    }
+  })
+}
+
+const refreshAccessToken = (z, bundle) => {
+  const promise = z.request(`${process.env.BASE_URL}/oauth/v1/token`, {
+    method: 'POST',
+
+    body: {
+      refresh_token: bundle.authData.refresh_token,
+
+      client_id: process.env.CLIENT_ID,
+
+      client_secret: process.env.CLIENT_SECRET,
+
+      grant_type: 'refresh_token'
+    },
+    headers: {
+      'content-type': 'application/x-www-form-urlencoded'
+    }
+  })
+
+  return promise.then((response) => {
+    if(response.status !== 200) {
+      throw new Error('Unable to fetch access token: ' + response.json)
+    }
+
+    return{
+      access_token: response.json.access_token
+    }
+  })
 }
 
 const authentication = {
@@ -49,41 +79,20 @@ const authentication = {
   oauth2Config: {
     authorizeUrl: {
 
-      method: 'GET',
-
       url: 'https://app.hubspot.com/oauth/authorize?',
 
       params: {
         client_id: '{{process.env.CLIENT_ID}}',
 
-        redirect_uri: 'https://zapier.com/dashboard/auth/oauth/return/App131772CLIAPI/',
+        redirect_uri: '{{bundle.inputData.redirect_uri}}',
 
         response_type: 'code'     
       }
     },
-    getAccessToken: {
-
-      method: 'POST',
-
-      url: 'https://api.hubapi.com/oauth/v1/token',
-
-      body: {
-        code: '{{bundle.inputData.code}}',
-
-        client_id: '{{process.env.CLIENT_ID}}',
-
-        client_secret: '{{process.env.CLIENT_SECRET}}',
-
-        redirect_uri: 'https://zapier.com/dashboard/auth/oauth/return/App131772CLIAPI/',
-
-        grant_type: 'authorization_code',
-      },
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-    },
+    getAccessToken,
 
     refreshAccessToken,
+    
     autoRefresh: true,
 
     scope: 'contacts' 
