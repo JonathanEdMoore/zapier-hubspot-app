@@ -73,7 +73,8 @@ const refreshAccessToken = (z, bundle) => {
     }
 
     return{
-      access_token: response.json.access_token
+      access_token: response.json.access_token,
+      refresh_token: response.json.refresh_token
     }
   })
 }
