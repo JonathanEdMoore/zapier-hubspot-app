@@ -52,5 +52,10 @@ describe('oauth2 app', () => {
         should.exist(result.refresh_token)
       })
   })
+
+  it('refreshes the access token', () => {
+    /*Check that access token returned is being set the bundle
+    If returning refresh token, make sure it's beting set in the bundle */
+  })
 })
 

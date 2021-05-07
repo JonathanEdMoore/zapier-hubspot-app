@@ -15,7 +15,7 @@ const perform = (z) => {
 }
 
 module.exports = {
-  key: 'contact',
+  key: 'new_contact',
   noun: 'Contact',
   display: {
     label: 'New Contact',
