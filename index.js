@@ -20,7 +20,7 @@ const throwErrors = (response, z, bundle) => {
     return response
   }
 
-  else if(response.status >= 400){
+  else if(response.status === 400){
     throw new Error(`Error: ${response.json.message}, Status Code: ${response.status}`)
   }
   

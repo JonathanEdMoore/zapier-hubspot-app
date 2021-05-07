@@ -16,7 +16,7 @@ describe('oauth2 app', () => {
     }
   })
 
-  it('generates an authorize URL', () => {
+  it.skip('generates an authorize URL', () => {
     const bundle = {
       inputData: {
         redirect_uri: 'https://localhost/3000/'
@@ -33,10 +33,10 @@ describe('oauth2 app', () => {
       })
   })
 
-  it.skip('can fetch an access token', () => {
+  it('can fetch an access token', () => {
     const bundle = {
       inputData: {
-        code: 'b8832d00-cda4-4d53-8d8c-93daa2c17f75',
+        code: '0451cd8b-486e-427b-b5f6-3976e6aeaff8',
         redirect_uri: 'http://localhost/3000/'
       },
       environment: {
@@ -53,9 +53,23 @@ describe('oauth2 app', () => {
       })
   })
 
-  it('refreshes the access token', () => {
-    /*Check that access token returned is being set the bundle
+  it.skip('refreshes the access token', () => {
+    /*Check that access token returned is being set in the bundle
     If returning refresh token, make sure it's beting set in the bundle */
+    const bundle = {
+      authData: {
+        refresh_token: '8a56c570-5edb-44c8-915a-cac641bd0cf9'
+      },
+      environment: {
+        CLIENT_ID: process.env.CLIENT_ID,
+        CLIENT_SECRET: process.env.CLIENT_SECRET
+      }
+    }
+    return appTester(App.authentication.oauth2Config.refreshAccessToken, bundle)
+      .then((result) => {
+        should.exist(result.access_token)
+        should.exist(result.refresh_token)
+      })
   })
 })
 

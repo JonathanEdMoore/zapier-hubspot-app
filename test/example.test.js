@@ -11,7 +11,8 @@ const appTester = zapier.createAppTester(App)
 zapier.tools.env.inject()
 
 const authData = {
-  access_token: process.env.ACCESS_TOKEN
+  access_token: process.env.ACCESS_TOKEN,
+  refresh_token: process.env.REFRESH_TOKEN
 }
 
 
