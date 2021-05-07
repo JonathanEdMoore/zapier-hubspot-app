@@ -5,7 +5,7 @@ const perform = (z) => {
   return z.request(url).then((response) => {
     let results = []
     for (const contacts of response.json.contacts){
-      contacts.id = z.hash('md5', contacts.id + contacts.properties.lastmodifieddate)
+      contacts.id = z.hash('md5', contacts.vid + contacts.properties.lastmodifieddate)
       results.push(
         contacts
       )
