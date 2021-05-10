@@ -23,7 +23,7 @@ describe('My App ', () => {
       authData
     }
 
-    appTester(App.triggers.contact.operation.perform, bundle)
+    appTester(App.triggers.new_contact.operation.perform, bundle)
       .then(results => {
         expect(results.length).toBeGreaterThan(1)
 

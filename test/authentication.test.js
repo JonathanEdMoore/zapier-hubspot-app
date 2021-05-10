@@ -16,7 +16,7 @@ describe('oauth2 app', () => {
     }
   })
 
-  it.skip('generates an authorize URL', () => {
+  it('generates an authorize URL', () => {
     const bundle = {
       inputData: {
         redirect_uri: 'https://localhost/3000/'
